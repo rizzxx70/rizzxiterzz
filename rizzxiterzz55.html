@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIZZXITER55 | MASTER PANEL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono&display=swap');
+
+        body {
+            background-color: #00050a;
+            color: #00a2ff;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .panel {
+            width: 90%;
+            max-width: 450px;
+            background: rgba(0, 10, 20, 0.95);
+            border: 2px solid #00a2ff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(0, 162, 255, 0.3);
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            font-size: 1.8em;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+            color: #fff;
+            text-shadow: 0 0 10px #00a2ff;
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 0.7em;
+            color: #00a2ff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            font-size: 0.8em;
+            border-bottom: 1px solid #004466;
+            margin: 15px 0 10px;
+            padding-bottom: 5px;
+            color: #55ccff;
+        }
+
+        /* Input Customizer */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        input {
+            flex: 1;
+            background: #000;
+            border: 1px solid #004466;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'JetBrains Mono';
+            font-size: 0.8em;
+        }
+
+        /* Toggle Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .toggle-btn {
+            background: #001a33;
+            border: 1px solid #00a2ff;
+            color: #00a2ff;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .toggle-btn.active {
+            background: #00a2ff;
+            color: #000;
+            box-shadow: 0 0 15px #00a2ff;
+            font-weight: bold;
+        }
+
+        .launch-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            background: transparent;
+            border: 2px solid #00ff88;
+            color: #00ff88;
+            font-family: 'Orbitron';
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .launch-btn:hover {
+            background: #00ff88;
+            color: #000;
+            box-shadow: 0 0 20px #00ff88;
+        }
+
+        #log {
+            margin-top: 15px;
+            height: 60px;
+            background: #000;
+            font-size: 0.7em;
+            padding: 10px;
+            overflow-y: auto;
+            border-radius: 5px;
+            color: #fff;
+            border: 1px solid #111;
+        }
+    </style>
+</head>
+<body>
+
+<div class="panel">
+    <h1>RIZZXITER55</h1>
+    <div class="tagline">SUPPORTS ALL DEVICE | ANTI-BAN</div>
+
+    <div class="section-title">RESOLUTION & DENSITY</div>
+    <div class="input-group">
+        <input type="text" id="res" placeholder="Resolution (ex: 1080x2400)">
+        <input type="number" id="dpi" placeholder="DPI (ex: 480)">
+    </div>
+
+    <div class="section-title">ACTIVE FEATURES</div>
+    <div class="grid">
+        <div class="toggle-btn" onclick="toggleFeature(this, 'aimlock')">AIMLOCK MAGNET</div>
+        <div class="toggle-btn" onclick="toggleFeature(this, 'drag')">DRAG SMOOTH</div>
+        <div class="toggle-btn" onclick="toggleFeature(this, 'fps')">FPS BOOSTER</div>
+        <div class="toggle-btn" onclick="toggleFeature(this, 'recoil')">ANTI RECOIL</div>
+    </div>
+
+    <div id="log">> System ready...<br>> Waiting for command...</div>
+
+    <button class="launch-btn" onclick="launchFF()">LAUNCH FREE FIRE</button>
+</div>
+
+<script>
+    let activeScripts = new Set();
+
+    function toggleFeature(el, feature) {
+        el.classList.toggle('active');
+        if (el.classList.contains('active')) {
+            activeScripts.add(feature);
+            updateLog(`[+] ${feature.toUpperCase()} Enabled`);
+        } else {
+            activeScripts.delete(feature);
+            updateLog(`[-] ${feature.toUpperCase()} Disabled`);
+        }
+    }
+
+    function updateLog(msg) {
+        const log = document.getElementById('log');
+        log.innerHTML += `<br>> ${msg}`;
+        log.scrollTop = log.scrollHeight;
+    }
+
+    function launchFF() {
+        const resValue = document.getElementById('res').value;
+        const dpiValue = document.getElementById('dpi').value;
+        
+        // 1. Voice Protocol
+        let speech = new SpeechSynthesisUtterance();
+        speech.text = "RIZZ MODS AKTIF";
+        speech.lang = "id-ID";
+        speech.rate = 1;
+        window.speechSynthesis.speak(speech);
+
+        // 2. Generate ADB Command
+        let finalCommand = "# RIZZXITER55 GENERATED COMMAND\n";
+        
+        // Resolution & DPI
+        if(resValue) finalCommand += `wm size ${resValue} && `;
+        if(dpiValue) finalCommand += `wm density ${dpiValue} && `;
+
+        // Features
+        if(activeScripts.has('aimlock')) finalCommand += "settings put global view.touch_slop 0 && settings put system pointer_speed 7 && ";
+        if(activeScripts.has('drag')) finalCommand += "settings put global view.scroll_friction 0 && ";
+        if(activeScripts.has('fps')) finalCommand += "setprop debug.performance.tuning 1 && setprop debug.egl.hw 1 && ";
+        if(activeScripts.has('recoil')) finalCommand += "setprop debug.gr.num_framebuffers 3 && ";
+
+        finalCommand += "am start -n com.dts.freefireth/com.dts.freefireth.FFMainActivity";
+
+        // 3. Copy to Clipboard
+        navigator.clipboard.writeText(finalCommand).then(() => {
+            updateLog("<span style='color:#00ff88'>[SUCCESS] SCRIPT COPIED TO CLIPBOARD!</span>");
+            alert("SCRIPT COPIED!\nTempel (Paste) di Brevent sekarang.");
+        });
+    }
+</script>
+
+</body>
+</html>
